@@ -1,0 +1,96 @@
+
+
+<html>
+    <head>
+        <title>jQuery to-do list</title>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+            <link href='./css-to-do.css' rel='stylesheet' type='text/css'>
+
+    </head>
+    
+    <body>
+        <header>
+            <h1>jQuery To-Do List</h1>
+        </header>
+        
+        <section>
+            <ul id="todolist">
+              
+            </ul>
+            
+            <form>
+                <input type="text" id="txtNewToDo" placeholder="New To-Do Item..." autocomplete="off">
+                <div class="btn" id="addNewToDo">+</div>
+            </form>
+            
+            <div id="lblError">Please Type Something To Do!</div>
+        </section>
+        
+        <script>
+            
+   $(document).ready(function() {
+                 $("#txtNewToDo").focus();
+
+         $(".close").hide();
+         var $closeButton = $("<span class='close'>&#x2716;</span>");
+         var $number = 0;
+         $("li").append($closeButton);
+
+//Show close button    used to be $("li")     
+         $("ul").children().mouseover(function(){
+                $(this).children().show();    
+         });
+
+//hide close button
+         $("ul").children().mouseleave(function(){
+                $(this).children().hide();  
+         });
+
+//If close button is clicked, li is removed
+          $(".close").click(function(){
+             $(this).parent().remove();
+         })
+         var $textbox = $("#txtNewToDo");
+         var $close = $(".close");
+
+         $("#addNewToDo").click(function(){
+                $number++;
+                if ($textbox.val() != '' && $textbox.val() != ' ') {
+                       $("#lblError").slideUp();
+                       $("#todolist").last().append("<li>" + $number +  ".  " + $textbox.val() + "<span class='close'>&#x2716;</span>");
+
+            
+
+               $(".close").hide();
+               $("ul").children().mouseover(function(){
+                         $(this).children().last().show();  
+                     });
+
+//hide close button when mouse leaves
+                 $("ul").children().mouseleave(function(){
+                        $(this).children().last().hide();  
+          
+                 });
+        
+         $(".close").click(function(){
+                  $(this).parent().remove();
+         });
+            }
+            else{
+         $("#lblError").slideDown();
+
+     }
+ });
+
+         $("ul").on('click', 'li', function(){
+           $(this).toggleClass("checked");
+});
+
+       
+});
+
+
+        </script>
+    </body>
+</html>
